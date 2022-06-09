@@ -33,7 +33,7 @@ class DishDetail extends Component {
     renderComments(dish) {
         return dish.comments.map((cm) => {
             return (
-                <div>
+                <div key = {cm.id}>
                     <CardText>{cm.comment}</CardText>
                     <CardText>-- {cm.author}, {cm.date}</CardText>
                 </div>
