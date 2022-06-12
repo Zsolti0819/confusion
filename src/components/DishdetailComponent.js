@@ -35,7 +35,11 @@ class DishDetail extends Component {
             return (
                 <div key = {cm.id}>
                     <CardText>{cm.comment}</CardText>
-                    <CardText>-- {cm.author}, {cm.date}</CardText>
+                    <CardText>-- {cm.author}, {new Intl.DateTimeFormat("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "2-digit",
+                    }).format(new Date(cm.date))}</CardText>
                 </div>
             )
         });
