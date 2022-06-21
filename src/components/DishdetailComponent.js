@@ -1,5 +1,5 @@
 import React from "react";
-import {Breadcrumb, BreadcrumbItem, Card, CardBody, CardImg, CardText, CardTitle} from "reactstrap";
+import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardImg, CardText, CardTitle } from "reactstrap";
 import { Link } from 'react-router-dom';
 
     function RenderDish({dish}) {
