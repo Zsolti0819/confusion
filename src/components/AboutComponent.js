@@ -1,6 +1,9 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { baseUrl } from "../shared/baseUrl";
+import { Fade, Stagger } from "react-animation-components";
+import { Loading } from './LoadingComponent';
 
 function About(props) {
 
@@ -9,7 +12,7 @@ function About(props) {
             <div key = {leader.id} className="col-12 mt=5">
                 <Media tag="li">
                     <Media left middle>
-                        <Media object src={leader.image} alt={leader.name} />
+                        <Media object src={baseUrl + leader.image} alt={leader.name} />
                     </Media>
                     <Media body className="ml-5">
                         <Media heading>{leader.name}</Media>
@@ -21,11 +24,39 @@ function About(props) {
         );
     }
 
-    const leaders = props.leaders.map((leader) => {
-        return (
-            <RenderLeader leader = {leader} />
-        );
-    });
+    function RenderLeaders (props) {
+        const leaders = props.leaders.leaders.map((leader) => {
+            return (
+                <Fade in key={leader._id}>
+                    <div className="col-12 mt-2">
+                        <RenderLeader leader={leader} />
+                    </div>
+                </Fade>
+            );
+        });
+
+        if (props.leaders.isLoading) {
+            return(
+                <Loading />
+            );
+        }
+        else if (props.leaders.errMess) {
+            return(
+                <div className="col-12">
+                    <h4>{props.leaders.errMess}</h4>
+                </div>
+            );
+        }
+        else {
+            return (
+                <Media list>
+                    <Stagger in>
+                        {leaders}
+                    </Stagger>
+                </Media>
+            );
+        }
+    }
 
     return(
         <div className="container">
@@ -83,7 +114,7 @@ function About(props) {
                 </div>
                 <div className="col-12">
                     <Media list>
-                        {leaders}
+                        <RenderLeaders leaders = {props.leaders} />
                     </Media>
                 </div>
             </div>
